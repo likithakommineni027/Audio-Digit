@@ -48,18 +48,22 @@ rms_target_dbfs, label_map, split_seed
 Training knobs (top of file):
 EPOCHS, BATCH_SIZE, LR, WEIGHT_DECAY
 NOISE_PROB, NOISE_LEVEL
-2) Single-file inference
-python your_script.py infer path/to/clip.wav --artifacts fsdd_cnn_mel.pt
+
+3) Single-file inference
+python Audio-digit.py infer path/to/clip.wav --artifacts fsdd_cnn_mel.pt
 Output:
 Predicted digit + class probabilities
-3) Robustness evaluation
+
+4) Robustness evaluation
 python your_script.py robust --data_dir recordings --artifacts fsdd_cnn_mel.pt \
   --noise_levels 0.002 0.005 0.01 0.02 \
   --shifts_ms 0 10 20 40
+   
 What it does:
 Rebuilds the same test split using the saved seed
 Evaluates clean test accuracy
 Sweeps white noise std and time-shift (ms) and reports accuracy
+
 Expected results
 On clean FSDD, a setup like this typically lands >95% test accuracy. Noise and large shifts will gracefully degrade performance; the robustness sweep quantifies that drop.
 Project layout (single-file script)
@@ -73,6 +77,8 @@ Tiny DS-Conv model
 Train/eval loops, confusion matrix + report
 CLI for train / infer / robust
 If you later want to split modules, the boundaries are already clean: audio_utils, features, data, model, train, eval.
+
+
 Notes & tips
 Device selection: the file auto-uses CUDA if available (DEVICE = "cuda" if torch.cuda.is_available() else "cpu").
 On Apple Silicon, consider changing to:
