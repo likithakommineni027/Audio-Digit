@@ -55,7 +55,7 @@ Output:
 Predicted digit + class probabilities
 
 4) Robustness evaluation
-python your_script.py robust --data_dir recordings --artifacts fsdd_cnn_mel.pt \
+python Audio-digit.py robust --data_dir recordings --artifacts fsdd_cnn_mel.pt \
   --noise_levels 0.002 0.005 0.01 0.02 \
   --shifts_ms 0 10 20 40
    
